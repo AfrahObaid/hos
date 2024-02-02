@@ -1,0 +1,75 @@
+<?php
+
+include "headerr.php";
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Al shifa Hospital</title>
+    <link rel="stylesheet" href="stylee.css">
+   
+
+</head>
+<body>
+
+    
+    <div class="main">
+        <div class="logo">
+            <img src="images/logo.png">
+            <h2> Welcome Hospital Hayat</h2>
+        </div>
+
+        <div class="book">
+            <p>اهلا بك في مستشفى افراح ,, للحجز افراح عبيد الإستمارة أدناة</p>
+            
+            <p>اهلا بك في مستشفى افراح ,, للحجز افراح عبيد الإستمارة أدناة</p>
+            <form action="index.php" method="post">
+                <input type="text" placeholder="أدخل الاسم" name="name"/>
+                <input type="text" placeholder="أدخل البريد الالكتروني" name="email"/>
+                <input type="date" name="date"/>
+                <input type="submit" value="  فاحجز الان" name="send"/>
+            </form>
+        <?php
+
+            $host            = "localhost";
+            $user            = "root";
+            $password        = "";
+            $dbName          = "hospital";
+            $conn = mysqli_connect($host, $user, $password,$dbName);
+            
+
+            $pName  =isset($_POST['name'])?
+            $_POST['name']:null;
+
+            $pEmail  =isset($_POST['email'])?
+            $_POST['email']:null;
+
+            $pDate  =isset($_POST['date'])?
+            $_POST['date']:null;
+
+            $pSend  =isset($_POST['send'])?
+            $_POST['send']:null;
+
+
+            if($pSend){
+                $query= "INSERT INTO patients(name,email,date)VALUE('$pName','$pEmail','$pDate')";
+                $result =mysqli_query($conn,$query);
+                echo "<p style='color:green'>"."تم الحجز"."</p>";
+            }
+            
+            
+            else{
+                echo "<p style='color:red'>"."عفوا حدث خطأ ما .. حاول مره اخرى"."</p>";
+            }
+        
+        ?>
+        </div>
+    </div>
+</body>
+</html>
